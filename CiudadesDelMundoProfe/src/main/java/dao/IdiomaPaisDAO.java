@@ -80,7 +80,6 @@ public class IdiomaPaisDAO implements CrudDAO<IdiomaPais> {
         return null;
     }
 
-    @Override
 public List<IdiomaPais> listarPorPais(String codigoPais) {
         List<IdiomaPais> listado = new ArrayList<>();
         String sql = "SELECT * FROM Idioma WHERE codigoPais = ?";
@@ -99,6 +98,11 @@ public List<IdiomaPais> listarPorPais(String codigoPais) {
             System.out.println("Error al listar idiomas: " + e.getMessage());
         }
         return listado;
+    }
+
+    @Override
+    public List<IdiomaPais> listarTodos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
