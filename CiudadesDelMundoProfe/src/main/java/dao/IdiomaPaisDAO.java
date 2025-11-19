@@ -81,28 +81,23 @@ public class IdiomaPaisDAO implements CrudDAO<IdiomaPais> {
     }
 
     @Override
-    public List<IdiomaPais> listarTodos() {
+public List<IdiomaPais> listarPorPais(String codigoPais) {
         List<IdiomaPais> listado = new ArrayList<>();
-        String sql = "SELECT * FROM Idioma";
-
-        try (Connection conn = Conexion.getInstancia(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-
+        String sql = "SELECT * FROM Idioma WHERE codigoPais = ?";
+        try (Connection conn = Conexion.getInstancia(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, codigoPais);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                IdiomaPais idioma = new IdiomaPais(
+                listado.add(new IdiomaPais(
                         rs.getInt("idIdioma"),
                         rs.getString("nombreIdioma"),
                         rs.getBoolean("oficial"),
                         rs.getString("codigoPais")
-                );
-
-//                u.setFecha(rs.getTimestamp("fecha_registro").toLocalDateTime());
-                listado.add(idioma);
+                ));
             }
-
         } catch (SQLException e) {
-            System.out.println("Error al listar usuarios: " + e.getMessage());
+            System.out.println("Error al listar idiomas: " + e.getMessage());
         }
-
         return listado;
     }
 
