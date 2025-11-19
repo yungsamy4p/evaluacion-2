@@ -10,6 +10,8 @@ package vista;
  */
 public class VistaIdiomasPais extends javax.swing.JFrame {
 
+dao.PaisDAO paisDAO = new dao.PaisDAO();
+    
     /**
      * Creates new form VistaIdiomasPais
      */

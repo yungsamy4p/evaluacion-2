@@ -10,6 +10,8 @@ package vista;
  */
 public class VistaBuscarCiudad extends javax.swing.JFrame {
 
+dao.PaisDAO paisDAO = new dao.PaisDAO();
+    
     /**
      * Creates new form VistaBuscarCiudad
      */
