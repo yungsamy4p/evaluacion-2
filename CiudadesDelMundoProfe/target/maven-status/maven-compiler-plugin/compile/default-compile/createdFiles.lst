@@ -7,6 +7,7 @@ dao\CiudadDAO.class
 dao\IdiomaPaisDAO.class
 vista\VistaCompararPaises.class
 dao\PaisDAO.class
+vista\VistaBuscarPais$2.class
 vista\MenuVista$3.class
 modelo\IdiomaPais.class
 vista\VistaPaisesContinente$2.class
