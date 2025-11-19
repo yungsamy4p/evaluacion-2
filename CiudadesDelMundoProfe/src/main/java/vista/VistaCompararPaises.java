@@ -9,10 +9,10 @@ package vista;
  * @author samue
  */
 
+public class VistaCompararPaises extends javax.swing.JFrame {
+
 dao.PaisDAO paisDAO = new dao.PaisDAO();
-
-public class VistaCompararPaises extends javax.swing.JPanel {
-
+    
     /**
      * Creates new form VistaCompararPaises
      */

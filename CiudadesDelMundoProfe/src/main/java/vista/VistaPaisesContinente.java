@@ -9,10 +9,11 @@ package vista;
  * @author samue
  */
 
-dao.PaisDAO paisDAO = new dao.PaisDAO();
 
 public class VistaPaisesContinente extends javax.swing.JFrame {
 
+dao.PaisDAO paisDAO = new dao.PaisDAO();
+    
     /**
      * Creates new form VistaPaisesContinente
      */
