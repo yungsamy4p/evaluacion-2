@@ -1,183 +1,207 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista;
-
-import dao.*;
-import modelo.*;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  *
  * @author samue
  */
+public class MenuVista extends javax.swing.JFrame {
 
-public class MenuVista {
-    private Scanner leer = new Scanner(System.in);
-    private PaisDAO paisDAO = new PaisDAO();
-    private CiudadDAO ciudadDAO = new CiudadDAO();
-    private IdiomaPaisDAO idiomaDAO = new IdiomaPaisDAO();
-
-    public void mostrarMenuPrincipal() {
-        int opcion = 0;
-        do {
-            System.out.println("\n=== SISTEMA CIUDADES (AGENTE 117) - DB ORIGINAL ===");
-            System.out.println("1. Buscar país (Nombre, Cont., Pob.)");
-            System.out.println("2. Buscar ciudad");
-            System.out.println("3. Listar países por continente");
-            System.out.println("4. Ver ciudades de un país");
-            System.out.println("5. Ver idiomas de un país");
-            System.out.println("6. Comparar población entre países");
-            System.out.println("7. Listar todos los países (Año Indep. no disponible)");
-            System.out.println("8. Frecuencia de idiomas (Global)");
-            System.out.println("9. Listar ciudades principales (Capitales no marcadas en DB)");
-            System.out.println("10. Top ciudades más pobladas");
-            System.out.println("0. Salir");
-            System.out.print("Seleccione misión: ");
-            
-            try {
-                String input = leer.nextLine();
-                opcion = Integer.parseInt(input);
-            } catch (NumberFormatException e) { 
-                opcion = -1; 
-            }
-
-            switch (opcion) {
-                case 1: vistaBuscarPais(); break;
-                case 2: vistaBuscarCiudad(); break;
-                case 3: vistaPaisesPorContinente(); break;
-                case 4: vistaCiudadesPorPais(); break;
-                case 5: vistaIdiomasPais(); break;
-                case 6: vistaCompararPaises(); break;
-                case 7: vistaListarTodos(); break;
-                case 8: vistaIdiomasFrecuencia(); break;
-                case 9: vistaCiudadesPrincipales(); break;
-                case 10: ciudadDAO.listarMasPobladas(5); break;
-                case 0: System.out.println("Cortana fuera."); break;
-                default: System.out.println("Comando no reconocido, Jefe.");
-            }
-        } while (opcion != 0);
+    /**
+     * Creates new form MenuVista
+     */
+    public MenuVista() {
+        initComponents();
     }
 
-    private void vistaBuscarPais() {
-        System.out.print("Nombre del país: ");
-        String nombre = leer.nextLine();
-        Pais p = paisDAO.buscarPorNombre(nombre);
-        if (p != null) {
-            System.out.println(">> " + p.getNombre() + " (" + p.getCodigo() + ")");
-            System.out.println("   Continente: " + p.getContinente());
-            System.out.println("   Población: " + p.getPoblacion());
-            // Interpretación: 1 = República/Presidencial, 0 = Monarquía/Parlamentaria (ejemplo)
-            System.out.println("   Gobierno: " + (p.isTipoGobierno() ? "República (1)" : "Monarquía/Otro (0)")); 
-        } else {
-            System.out.println("Objetivo no encontrado.");
-        }
-    }
-
-    private void vistaBuscarCiudad() {
-        System.out.print("Nombre de la ciudad: ");
-        String nombre = leer.nextLine();
-        Ciudad c = ciudadDAO.buscarPorNombre(nombre);
-        if (c != null) {
-            System.out.println(">> " + c.getNombre() + " | País: " + c.getCodigoPais() + " | Pob: " + c.getPoblacion());
-        } else {
-            System.out.println("Ciudad no encontrada.");
-        }
-    }
-
-    private void vistaPaisesPorContinente() {
-        System.out.print("Continente (Asia, Europe, America...): ");
-        String cont = leer.nextLine();
-        List<Pais> lista = paisDAO.listarPorContinente(cont);
-        if (lista.isEmpty()) {
-            System.out.println("Sin registros o continente mal escrito.");
-        }
-        for (Pais p : lista) {
-            System.out.println("- " + p.getNombre());
-        }
-    }
-
-    private void vistaCiudadesPorPais() {
-        System.out.print("Código País (ej. ARG, CHL): ");
-        String cod = leer.nextLine().toUpperCase();
-        List<Ciudad> lista = ciudadDAO.listarPorPais(cod);
-        if (lista.isEmpty()) {
-            System.out.println("No se encontraron ciudades para este código.");
-        }
-        for (Ciudad c : lista) {
-            System.out.println("- " + c.getNombre() + " (" + c.getPoblacion() + ")");
-        }
-    }
-
-    private void vistaIdiomasPais() {
-        System.out.print("Código País (ej. CHL): ");
-        String cod = leer.nextLine().toUpperCase();
-        List<IdiomaPais> lista = idiomaDAO.listarPorPais(cod);
-        if (lista.isEmpty()) {
-            System.out.println("No se encontraron idiomas.");
-        }
-        for (IdiomaPais i : lista) {
-            System.out.println("- " + i.getNombre() + (i.isOficial() ? " [OFICIAL]" : ""));
-        }
-    }
-
-    private void vistaCompararPaises() {
-        System.out.print("País 1: ");
-        Pais p1 = paisDAO.buscarPorNombre(leer.nextLine());
-        System.out.print("País 2: ");
-        Pais p2 = paisDAO.buscarPorNombre(leer.nextLine());
-        
-        if (p1 != null && p2 != null) {
-            System.out.println("=== COMPARATIVA DE POBLACIÓN ===");
-            System.out.println(p1.getNombre() + ": " + p1.getPoblacion());
-            System.out.println(p2.getNombre() + ": " + p2.getPoblacion());
-            if(p1.getPoblacion() > p2.getPoblacion()) 
-                System.out.println(">> " + p1.getNombre() + " tiene mayor población.");
-            else 
-                System.out.println(">> " + p2.getNombre() + " tiene mayor población.");
-        } else {
-            System.out.println("Uno de los países no fue encontrado.");
-        }
-    }
-
-    // Adaptación REQ 7
-    private void vistaListarTodos() {
-        System.out.println("(Nota: Campo 'Año Independencia' no existe en DB. Listando todos los países...)");
-        List<Pais> lista = paisDAO.listarTodos();
-        for (Pais p : lista) {
-            System.out.println(p.getCodigo() + " - " + p.getNombre());
-        }
-    }
-
-    // Adaptación REQ 8
-    private void vistaIdiomasFrecuencia() {
-        System.out.println("(Nota: Campo 'Porcentaje' no existe. Funcionalidad limitada.)");
-        System.out.println("Consulta tu tabla 'Idioma' en Workbench para ver estadísticas.");
-    }
-
-    // Adaptación REQ 9
-    private void vistaCiudadesPrincipales() {
-        System.out.println("(Nota: La DB no marca cuál es la Capital. Listando ciudades registradas...)");
-        vistaCiudadesPorPais();
-    }
-}
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton1.setText("1. Buscar País");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("2. Buscar Ciudad");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("3. Países por Continente");
+
+        jButton4.setText("4. Ciudades de un País");
+
+        jButton5.setText("5. Idiomas de un País");
+
+        jButton6.setText("Salir");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("6. Comparar Países");
+
+        jButton8.setText("7. Listar Todos");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setText("8. Info Idiomas");
+
+        jButton10.setText("9. Info Capitales");
+
+        jButton11.setText("10. Top Ciudades");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(82, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(109, 109, 109))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(237, 237, 237)
+                .addComponent(jButton6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton10)
+                        .addGap(12, 12, 12)
+                        .addComponent(jButton11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton5)))
+                .addGap(18, 18, 18)
+                .addComponent(jButton6)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+new VistaBuscarPais().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+new VistaListarTodos().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MenuVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MenuVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MenuVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MenuVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MenuVista().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    // End of variables declaration//GEN-END:variables
+}
