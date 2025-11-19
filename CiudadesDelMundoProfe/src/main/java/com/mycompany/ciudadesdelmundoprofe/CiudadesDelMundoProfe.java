@@ -3,24 +3,15 @@
  */
 package com.mycompany.ciudadesdelmundoprofe;
 
-import dao.IdiomaPaisDAO;
-import modelo.IdiomaPais;
+import vista.MenuVista;
 
 /**
  *
  * @author Santo Tomas
  */
 public class CiudadesDelMundoProfe {
-
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-
-        for (IdiomaPais idioma : (new IdiomaPaisDAO()).listarTodos()) {
-            System.out.println("idioma " + idioma.toString());
-        }
-        for (IdiomaPais idioma : (new IdiomaPaisDAO()).listarTodos()) {
-            System.out.println("idioma " + idioma.toString());
-        }
-
+        MenuVista menu = new MenuVista();
+        menu.mostrarMenuPrincipal();
     }
 }

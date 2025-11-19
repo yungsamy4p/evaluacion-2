@@ -4,16 +4,16 @@
  */
 package dao;
 
-/**
- *
- * @author samue
- */
-
 import conn.Conexion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Pais;
+
+/**
+ *
+ * @author samue
+ */
 
 public class PaisDAO implements CrudDAO<Pais> {
 

@@ -4,16 +4,16 @@
  */
 package dao;
 
-/**
- *
- * @author samue
- */
-
 import conn.Conexion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Ciudad;
+
+/**
+ *
+ * @author samue
+ */
 
 public class CiudadDAO implements CrudDAO<Ciudad> {
     
