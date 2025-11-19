@@ -1,0 +1,5 @@
+modelo\IdiomaPais.class
+conn\Conexion.class
+dao\CrudDAO.class
+com\mycompany\ciudadesdelmundoprofe\CiudadesDelMundoProfe.class
+dao\IdiomaPaisDAO.class
