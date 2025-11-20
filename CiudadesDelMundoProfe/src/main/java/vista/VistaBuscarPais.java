@@ -33,7 +33,7 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
         txtNombre1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtResultado = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
+        txtBuscarPais = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,6 +50,12 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
         txtResultado.setRows(5);
         jScrollPane1.setViewportView(txtResultado);
 
+        txtBuscarPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarPaisActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,7 +67,7 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1)))
+                        .addComponent(txtBuscarPais)))
                 .addGap(18, 18, 18)
                 .addComponent(txtNombre1)
                 .addContainerGap(52, Short.MAX_VALUE))
@@ -73,7 +79,7 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscarPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(68, Short.MAX_VALUE))
@@ -85,8 +91,7 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
     private void txtNombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre1ActionPerformed
 
 dao.PaisDAO paisDAO = new dao.PaisDAO();
-    // CORRECCIÓN: Usar txtNombre1 en lugar de txtNombre
-    modelo.Pais c = paisDAO.buscarPorNombre(txtNombre1.getText());
+    modelo.Pais c = paisDAO.buscarPorNombre(txtBuscarPais.getText());
 
     if (c != null) {
         txtResultado.setText("Pais: " + c.getNombre() + "\n" +
@@ -98,6 +103,10 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
         // TODO add your handling code here:
                                            
     }//GEN-LAST:event_txtNombre1ActionPerformed
+
+    private void txtBuscarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarPaisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarPaisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,7 +146,7 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtBuscarPais;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JButton txtNombre1;
     private javax.swing.JTextArea txtResultado;
