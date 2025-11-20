@@ -30,25 +30,19 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
 
         txtNombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtNombre1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtNombre1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtResultado = new javax.swing.JTextArea();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Nombre del País");
 
+        txtNombre1.setText("Buscar");
         txtNombre1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombre1ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -63,13 +57,13 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1)))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(txtNombre1)
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -78,8 +72,8 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtNombre1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(68, Short.MAX_VALUE))
@@ -88,36 +82,21 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-/*dao.PaisDAO paisDAO = new dao.PaisDAO();
-
-modelo.Pais p = paisDAO.buscarPorNombre(txtNombre.getText());
-if (p != null) {
-    txtResultado.setText("Codigo pais:" + p.getCodigo() + "\n" +
-                         "País: " + p.getNombre() + "\n" +
-                         "Continente: " + p.getContinente() + "\n" +
-                         "Población: " + p.getPoblacion());
-} else {
-    txtResultado.setText("No encontrado.");
-}        // TODO add your handling code here:
-*/
-
+    private void txtNombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre1ActionPerformed
 
 dao.PaisDAO paisDAO = new dao.PaisDAO();
-modelo.Pais c = paisDAO.buscarPorNombre(txtNombre.getText());
+    // CORRECCIÓN: Usar txtNombre1 en lugar de txtNombre
+    modelo.Pais c = paisDAO.buscarPorNombre(txtNombre1.getText());
 
-if (c != null) {
-    txtResultado.setText("Pais: " + c.getNombre() + "\n" +
-                         "Población: " + c.getPoblacion() + "\n" +
-                         "Cód. País: " + c.getCodigoPais());
-} else {
-    txtResultado.setText("Pais no encontrado.");
-}        // TODO add your handling code here:
-                                           
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtNombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre1ActionPerformed
+    if (c != null) {
+        txtResultado.setText("Pais: " + c.getNombre() + "\n" +
+                             "Población: " + c.getPoblacion() + "\n" +
+                             "Cód. País: " + c.getCodigo()); // Nota: verifica si tu modelo tiene getCodigoPais() o getCodigo()
+    } else {
+        txtResultado.setText("Pais no encontrado.");
+    }
         // TODO add your handling code here:
+                                           
     }//GEN-LAST:event_txtNombre1ActionPerformed
 
     /**
@@ -156,11 +135,11 @@ if (c != null) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNombre1;
+    private javax.swing.JButton txtNombre1;
     private javax.swing.JTextArea txtResultado;
     // End of variables declaration//GEN-END:variables
 }
