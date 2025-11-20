@@ -16,10 +16,10 @@ public class Conexion {
 
     private static final String NAME_DB  = "mundo";
     private static final String USER     = "root";
-    private static final String PASSWORD = "";
-    private static final String HOST     = "127.0.0.1";
+    private static final String PASSWORD = "root";
+    private static final String HOST     = "localhost";
     private static final String PORT     = "3306";
-    private static final String CONN     = "jdbc:mysql://127.0.0.1:3306/mundo?useSSL=false&serverTimezone=UTC";
+    private static final String CONN     = "jdbc:mysql://" + HOST +":" + PORT + "/" + NAME_DB + "?useSSL=false&serverTimezone=UTC";
 
     // comenzar con el patron singleton
     private static Connection conn;

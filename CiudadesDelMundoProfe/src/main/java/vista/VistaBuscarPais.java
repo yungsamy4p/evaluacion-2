@@ -39,6 +39,12 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
 
         jLabel1.setText("Nombre del País");
 
+        txtNombre1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombre1ActionPerformed(evt);
+            }
+        });
+
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,15 +89,36 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+/*dao.PaisDAO paisDAO = new dao.PaisDAO();
+
 modelo.Pais p = paisDAO.buscarPorNombre(txtNombre.getText());
 if (p != null) {
-    txtResultado.setText("País: " + p.getNombre() + "\n" +
+    txtResultado.setText("Codigo pais:" + p.getCodigo() + "\n" +
+                         "País: " + p.getNombre() + "\n" +
                          "Continente: " + p.getContinente() + "\n" +
                          "Población: " + p.getPoblacion());
 } else {
     txtResultado.setText("No encontrado.");
 }        // TODO add your handling code here:
+*/
+
+
+dao.PaisDAO paisDAO = new dao.PaisDAO();
+modelo.Pais c = paisDAO.buscarPorNombre(txtNombre.getText());
+
+if (c != null) {
+    txtResultado.setText("Pais: " + c.getNombre() + "\n" +
+                         "Población: " + c.getPoblacion() + "\n" +
+                         "Cód. País: " + c.getCodigoPais());
+} else {
+    txtResultado.setText("Pais no encontrado.");
+}        // TODO add your handling code here:
+                                           
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtNombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombre1ActionPerformed
 
     /**
      * @param args the command line arguments

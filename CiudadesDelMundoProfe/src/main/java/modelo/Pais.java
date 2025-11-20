@@ -42,4 +42,8 @@ public class Pais {
     public String toString() {
         return nombre + " (" + codigo + ")";
     }
+
+    public String getCodigoPais() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
