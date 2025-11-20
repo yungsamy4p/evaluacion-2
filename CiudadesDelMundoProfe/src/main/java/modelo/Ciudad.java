@@ -22,6 +22,23 @@ public class Ciudad {
         this.codigoPais = codigoPais;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setPoblacion(int poblacion) {
+        this.poblacion = poblacion;
+    }
+
+    public void setCodigoPais(String codigoPais) {
+        this.codigoPais = codigoPais;
+    }
+ 
+    
     public int getId() { return id; }
     public String getNombre() { return nombre; }
     public int getPoblacion() { return poblacion; }
