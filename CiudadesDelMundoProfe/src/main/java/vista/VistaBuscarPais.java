@@ -96,7 +96,8 @@ dao.PaisDAO paisDAO = new dao.PaisDAO();
     if (c != null) {
         txtResultado.setText("Pais: " + c.getNombre() + "\n" +
                              "Población: " + c.getPoblacion() + "\n" +
-                             "Cód. País: " + c.getCodigo()); // Nota: verifica si tu modelo tiene getCodigoPais() o getCodigo()
+                             "Cód. País: " + c.getCodigo()+ "\n" +
+                             "Continente: " + c.getContinente());// Nota: verifica si tu modelo tiene getCodigoPais() o getCodigo()
     } else {
         txtResultado.setText("Pais no encontrado.");
     }

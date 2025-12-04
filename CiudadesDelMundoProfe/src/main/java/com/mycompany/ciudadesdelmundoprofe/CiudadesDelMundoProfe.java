@@ -13,6 +13,6 @@ import vista.VistaUMM;
 public class CiudadesDelMundoProfe {
     public static void main(String[] args) {
         // Esto hace visible tu ventana de menú
-        new vista.VistaUMM().setVisible(true);
+        new vista.MenuVista().setVisible(true);
     }
 }
