@@ -17,14 +17,60 @@ import modelo.Pais;
 
 public class PaisDAO implements CrudDAO<Pais> {
 
+    // Método no usado porque la PK es String, usaremos buscarPorNombre o buscarPorCodigo si lo implementas
     @Override
-    public Pais obtenerPorId(int id) { return null; } // No usado porque la PK es String
+    public Pais obtenerPorId(int id) { return null; } 
+
+    // INSERTAR
+    @Override
+    public void insertar(Pais entidad) {
+        String sql = "INSERT INTO Pais (codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = Conexion.getInstancia(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, entidad.getCodigo());
+            ps.setString(2, entidad.getNombre());
+            ps.setString(3, entidad.getContinente());
+            ps.setInt(4, entidad.getPoblacion());
+            ps.setBoolean(5, entidad.isTipoGobierno());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error al insertar país: " + e.getMessage());
+        }
+    }
+
+    // ACTUALIZAR (Basado en el código del país)
+    @Override
+    public void actualizar(Pais entidad) {
+        String sql = "UPDATE Pais SET nombrePais=?, continentePais=?, poblacionPais=?, tipoGobierno=? WHERE codigoPais=?";
+        try (Connection conn = Conexion.getInstancia(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, entidad.getNombre());
+            ps.setString(2, entidad.getContinente());
+            ps.setInt(3, entidad.getPoblacion());
+            ps.setBoolean(4, entidad.isTipoGobierno());
+            ps.setString(5, entidad.getCodigo()); // WHERE clause
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar país: " + e.getMessage());
+        }
+    }
+
+    // ELIMINAR (Sobrecargamos o cambiamos la firma en tu interfaz CrudDAO si es posible, 
+    // pero aquí añado el método específico para String)
+    public void eliminar(String codigo) {
+        String sql = "DELETE FROM Pais WHERE codigoPais=?";
+        try (Connection conn = Conexion.getInstancia(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, codigo);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar país: " + e.getMessage());
+        }
+    }
     
-    // Implementación básica requerida por la interfaz (puedes dejarla vacía si no insertas datos)
-    @Override public void insertar(Pais entidad) {}
-    @Override public void actualizar(Pais entidad) {}
-    @Override public void eliminar(int id) {}
-    
+    // Implementación de la interfaz (recibe int), la dejamos vacía o lanzamos error
+    @Override 
+    public void eliminar(int id) { 
+        System.out.println("Usar eliminar(String codigo) para Paises."); 
+    }
+
     @Override
     public List<Pais> listarTodos() {
         List<Pais> lista = new ArrayList<>();
@@ -37,18 +83,16 @@ public class PaisDAO implements CrudDAO<Pais> {
         return lista;
     }
 
-    // REQ 1: Buscar por nombre
     public Pais buscarPorNombre(String nombre) {
-        String sql = "SELECT * FROM Pais WHERE nombrePais LIKE ?";
+        String sql = "SELECT * FROM Pais WHERE nombrePais = ?"; // Cambiado LIKE por = para búsqueda exacta en combos
         try (Connection conn = Conexion.getInstancia(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, "%" + nombre + "%");
+            ps.setString(1, nombre);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return mapear(rs);
         } catch (SQLException e) { e.printStackTrace(); }
         return null;
     }
 
-    // REQ 3: Listar por continente
     public List<Pais> listarPorContinente(String continente) {
         List<Pais> lista = new ArrayList<>();
         String sql = "SELECT * FROM Pais WHERE continentePais = ?";
@@ -60,7 +104,6 @@ public class PaisDAO implements CrudDAO<Pais> {
         return lista;
     }
 
-    // Método auxiliar para convertir ResultSet a Objeto
     private Pais mapear(ResultSet rs) throws SQLException {
         return new Pais(
             rs.getString("codigoPais"),

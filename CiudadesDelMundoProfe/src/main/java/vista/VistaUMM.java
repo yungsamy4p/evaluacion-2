@@ -1,10 +1,64 @@
 package vista;
 
+import dao.CiudadDAO;
+import dao.IdiomaPaisDAO;
+import dao.PaisDAO;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.Ciudad;
+import modelo.IdiomaPais;
+import modelo.Pais;
+
 public class VistaUMM extends javax.swing.JFrame {
+
+    private PaisDAO paisDAO = new PaisDAO();
+    private CiudadDAO ciudadDAO = new CiudadDAO();
+    private IdiomaPaisDAO idiomaDAO = new IdiomaPaisDAO();    
+    
 
     public VistaUMM() {
         initComponents();
+        cargarTablaPaises();
+        cargarCombosPaises();
 
+    }
+    
+    private void cargarTablaPaises() {
+        DefaultTableModel modelo = (DefaultTableModel) jTablePais.getModel();
+        modelo.setRowCount(0);
+        
+        List<Pais> lista = paisDAO.listarTodos();
+        for (Pais p : lista) {
+            Object[] fila = {
+                p.getCodigo(),
+                p.getNombre(),
+                p.getContinente(),
+                p.getPoblacion(),
+                p.isTipoGobierno() ? "Democracia" : "Otro"
+            };
+            modelo.addRow(fila);
+        }
+    }
+    
+    private void cargarCombosPaises() {
+        List<Pais> lista = paisDAO.listarTodos();
+        jComboBox1.removeAllItems();
+        jComboBox2.removeAllItems();
+        
+        for (Pais p : lista) {
+
+            jComboBox1.addItem(p.getNombre());
+            jComboBox2.addItem(p.getNombre());
+        }
+    }
+    
+    private void limpiarCamposPais() {
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtPoblacion.setText("");
+        cboxContinente.setSelectedIndex(0);
+        chkTipoGobierno.setSelected(false);
     }
 
     /**
@@ -366,37 +420,131 @@ public class VistaUMM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarCiudadActionPerformed
-        // TODO add your handling code here:
+    if(jComboBox1.getSelectedItem() == null) return;
+        
+        String nombrePais = jComboBox1.getSelectedItem().toString();
+        // Necesitamos el código del país. Lo buscamos:
+        Pais p = paisDAO.buscarPorNombre(nombrePais);
+        
+        if (p != null) {
+            List<Ciudad> ciudades = ciudadDAO.listarPorPais(p.getCodigo());
+            DefaultTableModel modelo = (DefaultTableModel) jTableCiudades.getModel();
+            modelo.setRowCount(0);
+            
+            for (Ciudad c : ciudades) {
+                Object[] fila = { c.getNombre(), c.getPoblacion() };
+                modelo.addRow(fila);
+            }
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btnConsultarCiudadActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+    int fila = jTablePais.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un país de la tabla para eliminar.");
+            return;
+        }
+        
+        String codigo = jTablePais.getValueAt(fila, 0).toString(); // Columna 0 es el código
+        
+        int confirm = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar el país " + codigo + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Nota: paisDAO.eliminar recibe int, pero tu PK es String (char 3).
+            // Deberás cambiar la firma en DAO o usar un método auxiliar.
+            // Asumiremos que corregirás el DAO para recibir String.
+             paisDAO.eliminar(codigo); 
+             
+            cargarTablaPaises();
+            cargarCombosPaises();
+            limpiarCamposPais();
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        //Acá codificará el Evento para Eliminar un País.
+        cargarTablaPaises();
+        JOptionPane.showMessageDialog(this, "Tabla actualizada.");        //Acá codificará el Evento para Eliminar un País.
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        //Acá codificará el Evento para Crear un País.
+    try {
+            String codigo = txtCodigo.getText();
+            String nombre = txtNombre.getText();
+            String continente = cboxContinente.getSelectedItem().toString();
+            int poblacion = Integer.parseInt(txtPoblacion.getText());
+            boolean gobierno = chkTipoGobierno.isSelected();
+            
+            Pais p = new Pais(codigo, nombre, continente, poblacion, gobierno);
+            paisDAO.insertar(p);
+            
+            JOptionPane.showMessageDialog(this, "País agregado con éxito");
+            cargarTablaPaises();
+            cargarCombosPaises();
+            limpiarCamposPais();
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "La población debe ser un número entero.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al agregar: " + e.getMessage());
+        }        //Acá codificará el Evento para Crear un País.
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        //Acá codificará el Evento para Actualizar un País.
+    try {
+            String codigo = txtCodigo.getText();
+            String nombre = txtNombre.getText();
+            String continente = cboxContinente.getSelectedItem().toString();
+            int poblacion = Integer.parseInt(txtPoblacion.getText());
+            boolean gobierno = chkTipoGobierno.isSelected();
+            
+            Pais p = new Pais(codigo, nombre, continente, poblacion, gobierno);
+            paisDAO.actualizar(p);
+            
+            JOptionPane.showMessageDialog(this, "País modificado con éxito");
+            cargarTablaPaises();
+            cargarCombosPaises();
+            limpiarCamposPais();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al modificar: " + e.getMessage());
+        }        //Acá codificará el Evento para Actualizar un País.
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnConsultarIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarIdiomaActionPerformed
-        // TODO add your handling code here:
+if(jComboBox2.getSelectedItem() == null) return;
+        
+        String nombrePais = jComboBox2.getSelectedItem().toString();
+        Pais p = paisDAO.buscarPorNombre(nombrePais);
+        
+        if (p != null) {
+            List<IdiomaPais> idiomas = idiomaDAO.listarPorPais(p.getCodigo());
+            DefaultTableModel modelo = (DefaultTableModel) jTableCiudades1.getModel(); // Nota: Tu tabla de idiomas se llama jTableCiudades1 en el form
+            modelo.setRowCount(0);
+            
+            for (IdiomaPais i : idiomas) {
+                Object[] fila = { i.getNombre(), i.isOficial() ? "Si" : "No" };
+                modelo.addRow(fila);
+            }
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btnConsultarIdiomaActionPerformed
+    
+private void jTablePaisMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        int fila = jTablePais.getSelectedRow();
+        if (fila != -1) {
+            txtCodigo.setText(jTablePais.getValueAt(fila, 0).toString());
+            txtNombre.setText(jTablePais.getValueAt(fila, 1).toString());
+            cboxContinente.setSelectedItem(jTablePais.getValueAt(fila, 2).toString());
+            txtPoblacion.setText(jTablePais.getValueAt(fila, 3).toString());
+            
+            String gob = jTablePais.getValueAt(fila, 4).toString();
+            chkTipoGobierno.setSelected(gob.equalsIgnoreCase("Democracia"));
+        }
+    }    
+    
+
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -413,12 +561,7 @@ public class VistaUMM extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VistaUMM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VistaUMM().setVisible(true);

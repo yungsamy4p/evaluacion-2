@@ -3,7 +3,7 @@
  */
 package com.mycompany.ciudadesdelmundoprofe;
 
-import vista.MenuVista;
+import vista.VistaUMM;
 
 /**
  *
@@ -13,6 +13,6 @@ import vista.MenuVista;
 public class CiudadesDelMundoProfe {
     public static void main(String[] args) {
         // Esto hace visible tu ventana de menú
-        new vista.MenuVista().setVisible(true);
+        new vista.VistaUMM().setVisible(true);
     }
 }
