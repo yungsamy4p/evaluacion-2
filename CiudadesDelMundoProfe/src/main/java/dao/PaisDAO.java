@@ -17,11 +17,10 @@ import modelo.Pais;
 
 public class PaisDAO implements CrudDAO<Pais> {
 
-    // Método no usado porque la PK es String, usaremos buscarPorNombre o buscarPorCodigo si lo implementas
     @Override
     public Pais obtenerPorId(int id) { return null; } 
 
-    // INSERTAR
+
     @Override
     public void insertar(Pais entidad) {
         String sql = "INSERT INTO Pais (codigoPais, nombrePais, continentePais, poblacionPais, tipoGobierno) VALUES (?, ?, ?, ?, ?)";
@@ -37,7 +36,7 @@ public class PaisDAO implements CrudDAO<Pais> {
         }
     }
 
-    // ACTUALIZAR (Basado en el código del país)
+
     @Override
     public void actualizar(Pais entidad) {
         String sql = "UPDATE Pais SET nombrePais=?, continentePais=?, poblacionPais=?, tipoGobierno=? WHERE codigoPais=?";
@@ -53,8 +52,7 @@ public class PaisDAO implements CrudDAO<Pais> {
         }
     }
 
-    // ELIMINAR (Sobrecargamos o cambiamos la firma en tu interfaz CrudDAO si es posible, 
-    // pero aquí añado el método específico para String)
+
     public void eliminar(String codigo) {
         String sql = "DELETE FROM Pais WHERE codigoPais=?";
         try (Connection conn = Conexion.getInstancia(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -65,7 +63,7 @@ public class PaisDAO implements CrudDAO<Pais> {
         }
     }
     
-    // Implementación de la interfaz (recibe int), la dejamos vacía o lanzamos error
+
     @Override 
     public void eliminar(int id) { 
         System.out.println("Usar eliminar(String codigo) para Paises."); 
@@ -84,7 +82,7 @@ public class PaisDAO implements CrudDAO<Pais> {
     }
 
     public Pais buscarPorNombre(String nombre) {
-        String sql = "SELECT * FROM Pais WHERE nombrePais = ?"; // Cambiado LIKE por = para búsqueda exacta en combos
+        String sql = "SELECT * FROM Pais WHERE nombrePais = ?";
         try (Connection conn = Conexion.getInstancia(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, nombre);
             ResultSet rs = ps.executeQuery();

@@ -130,10 +130,16 @@ public class VistaUMM extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PAISES DEL MUNDO");
+        setBackground(new java.awt.Color(204, 255, 255));
         setLocationByPlatform(true);
+
+        jTabbedPane1.setBackground(new java.awt.Color(204, 255, 255));
+
+        jPanelPaises.setBackground(new java.awt.Color(204, 255, 255));
 
         jLabel3.setText("Nombre");
 
+        btnModificar.setBackground(new java.awt.Color(204, 204, 255));
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,6 +151,13 @@ public class VistaUMM extends javax.swing.JFrame {
 
         jLabel5.setText("Población");
 
+        txtCodigo.setBackground(new java.awt.Color(204, 204, 255));
+
+        txtNombre.setBackground(new java.awt.Color(204, 204, 255));
+
+        txtPoblacion.setBackground(new java.awt.Color(204, 204, 255));
+
+        jTablePais.setBackground(new java.awt.Color(204, 204, 255));
         jTablePais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -156,16 +169,14 @@ public class VistaUMM extends javax.swing.JFrame {
                 "Código", "Nombre", "Continente", "Población", "Tipo de gobierno"
             }
         ));
+        jTablePais.setGridColor(new java.awt.Color(204, 204, 255));
+        jTablePais.setSelectionBackground(new java.awt.Color(204, 204, 255));
         jScrollPane1.setViewportView(jTablePais);
-        if (jTablePais.getColumnModel().getColumnCount() > 0) {
-            jTablePais.getColumnModel().getColumn(0).setHeaderValue("Código");
-            jTablePais.getColumnModel().getColumn(2).setHeaderValue("Continente");
-            jTablePais.getColumnModel().getColumn(4).setHeaderValue("Tipo de gobierno");
-        }
 
         jLabel1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         jLabel1.setText("Registro Poblacional Internacional");
 
+        btnCrear.setBackground(new java.awt.Color(204, 204, 255));
         btnCrear.setText("Agregar");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,6 +186,7 @@ public class VistaUMM extends javax.swing.JFrame {
 
         jLabel2.setText("Código");
 
+        btnConsultar.setBackground(new java.awt.Color(204, 204, 255));
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,6 +194,7 @@ public class VistaUMM extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(204, 204, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,8 +204,10 @@ public class VistaUMM extends javax.swing.JFrame {
 
         jLabel16.setText("Tipo de gobierno");
 
+        chkTipoGobierno.setBackground(new java.awt.Color(204, 255, 255));
         chkTipoGobierno.setText("Democracia");
 
+        cboxContinente.setBackground(new java.awt.Color(204, 204, 255));
         cboxContinente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Asia", "Europa", "America", "Africa", "Oceania", "Antarctica" }));
 
         javax.swing.GroupLayout jPanelPaisesLayout = new javax.swing.GroupLayout(jPanelPaises);
@@ -226,9 +241,9 @@ public class VistaUMM extends javax.swing.JFrame {
                                 .addComponent(txtPoblacion, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                 .addComponent(chkTipoGobierno)
                                 .addComponent(cboxContinente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelPaisesLayout.setVerticalGroup(
             jPanelPaisesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,6 +285,9 @@ public class VistaUMM extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Paises", jPanelPaises);
 
+        jPanelCiudades.setBackground(new java.awt.Color(204, 255, 255));
+
+        jTableCiudades.setBackground(new java.awt.Color(204, 204, 255));
         jTableCiudades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -288,6 +306,7 @@ public class VistaUMM extends javax.swing.JFrame {
 
         jLabel10.setText("Pais");
 
+        btnConsultarCiudad.setBackground(new java.awt.Color(204, 204, 255));
         btnConsultarCiudad.setText("Consultar");
         btnConsultarCiudad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,6 +314,7 @@ public class VistaUMM extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setBackground(new java.awt.Color(204, 204, 255));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Argentina", "Brasil", "Chile" }));
 
         javax.swing.GroupLayout jPanelCiudadesLayout = new javax.swing.GroupLayout(jPanelCiudades);
@@ -311,9 +331,9 @@ public class VistaUMM extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanelCiudadesLayout.setVerticalGroup(
             jPanelCiudadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,6 +356,9 @@ public class VistaUMM extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Ciudades", jPanelCiudades);
 
+        jPanelCiudades1.setBackground(new java.awt.Color(204, 255, 255));
+
+        jTableCiudades1.setBackground(new java.awt.Color(204, 204, 255));
         jTableCiudades1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -354,6 +377,7 @@ public class VistaUMM extends javax.swing.JFrame {
 
         jLabel12.setText("Pais");
 
+        btnConsultarIdioma.setBackground(new java.awt.Color(204, 204, 255));
         btnConsultarIdioma.setText("Consultar");
         btnConsultarIdioma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -361,6 +385,7 @@ public class VistaUMM extends javax.swing.JFrame {
             }
         });
 
+        jComboBox2.setBackground(new java.awt.Color(204, 204, 255));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Argentina", "Brasil", "Chile" }));
 
         javax.swing.GroupLayout jPanelCiudades1Layout = new javax.swing.GroupLayout(jPanelCiudades1);
@@ -377,9 +402,9 @@ public class VistaUMM extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanelCiudades1Layout.setVerticalGroup(
             jPanelCiudades1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,8 +431,7 @@ public class VistaUMM extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
@@ -423,7 +447,7 @@ public class VistaUMM extends javax.swing.JFrame {
     if(jComboBox1.getSelectedItem() == null) return;
         
         String nombrePais = jComboBox1.getSelectedItem().toString();
-        // Necesitamos el código del país. Lo buscamos:
+
         Pais p = paisDAO.buscarPorNombre(nombrePais);
         
         if (p != null) {
@@ -445,13 +469,11 @@ public class VistaUMM extends javax.swing.JFrame {
             return;
         }
         
-        String codigo = jTablePais.getValueAt(fila, 0).toString(); // Columna 0 es el código
+        String codigo = jTablePais.getValueAt(fila, 0).toString();
         
         int confirm = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar el país " + codigo + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            // Nota: paisDAO.eliminar recibe int, pero tu PK es String (char 3).
-            // Deberás cambiar la firma en DAO o usar un método auxiliar.
-            // Asumiremos que corregirás el DAO para recibir String.
+
              paisDAO.eliminar(codigo); 
              
             cargarTablaPaises();
@@ -462,7 +484,7 @@ public class VistaUMM extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         cargarTablaPaises();
-        JOptionPane.showMessageDialog(this, "Tabla actualizada.");        //Acá codificará el Evento para Eliminar un País.
+        JOptionPane.showMessageDialog(this, "Tabla actualizada.");
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
@@ -485,7 +507,7 @@ public class VistaUMM extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La población debe ser un número entero.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al agregar: " + e.getMessage());
-        }        //Acá codificará el Evento para Crear un País.
+        }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -505,7 +527,7 @@ public class VistaUMM extends javax.swing.JFrame {
             limpiarCamposPais();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al modificar: " + e.getMessage());
-        }        //Acá codificará el Evento para Actualizar un País.
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnConsultarIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarIdiomaActionPerformed
@@ -516,7 +538,7 @@ if(jComboBox2.getSelectedItem() == null) return;
         
         if (p != null) {
             List<IdiomaPais> idiomas = idiomaDAO.listarPorPais(p.getCodigo());
-            DefaultTableModel modelo = (DefaultTableModel) jTableCiudades1.getModel(); // Nota: Tu tabla de idiomas se llama jTableCiudades1 en el form
+            DefaultTableModel modelo = (DefaultTableModel) jTableCiudades1.getModel();
             modelo.setRowCount(0);
             
             for (IdiomaPais i : idiomas) {
@@ -538,9 +560,8 @@ private void jTablePaisMouseClicked(java.awt.event.MouseEvent evt) {
             chkTipoGobierno.setSelected(gob.equalsIgnoreCase("Democracia"));
         }
     }    
-    
 
-    
+
     /**
      * @param args the command line arguments
      */
